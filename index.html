@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoinCat Studio — Simple, fun 2D mobile games</title>
+<meta name="description" content="CoinCat Studio is a small indie studio making simple, fun 2D games for phones.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#FFD23F; --sun:#FFDA4A; --tangerine:#F58E1E; --ember:#D96A12;
+    --cream:#FFF6EA; --paper:#FFFBEF; --ink:#2A1B33; --ink-soft:#5A4A52;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Pixelify Sans',system-ui,sans-serif;font-size:19px;line-height:1.5}
+  img.pixel{image-rendering:pixelated;image-rendering:crisp-edges}
+  a{color:var(--ember)} a:hover{color:var(--ink)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .pixel-font{font-family:'Press Start 2P',monospace;letter-spacing:.02em}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:4px solid var(--ink)}
+  nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;flex-wrap:wrap}
+  nav .brand img{height:44px;display:block}
+  nav ul{list-style:none;display:flex;gap:6px;margin:0;padding:0;flex-wrap:wrap}
+  nav a.link{display:block;padding:8px 12px;text-decoration:none;color:var(--ink);font-family:'Press Start 2P',monospace;font-size:11px}
+  nav a.link:hover{background:var(--gold)}
+
+  /* buttons */
+  .btn{display:inline-block;font-family:'Press Start 2P',monospace;font-size:13px;text-decoration:none;color:var(--ink);background:var(--gold);border:4px solid var(--ink);padding:14px 20px;box-shadow:6px 6px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  .btn:hover{transform:translate(2px,2px);box-shadow:4px 4px 0 var(--ink);color:var(--ink)}
+  .btn:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--ink);background:var(--tangerine)}
+  .btn.alt{background:var(--cream)}
+
+  /* hero */
+  .hero{padding:64px 0 72px;background:
+     radial-gradient(circle at 80% 30%, rgba(255,218,74,.35), transparent 40%), var(--paper)}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero h1{font-family:'Press Start 2P',monospace;font-size:clamp(22px,4vw,40px);line-height:1.35;margin:0 0 20px}
+  .hero h1 span{color:var(--ember)}
+  .hero p{font-size:22px;color:var(--ink-soft);margin:0 0 32px;max-width:520px}
+  .hero .actions{display:flex;gap:16px;flex-wrap:wrap}
+  .hero .logo{display:flex;justify-content:center}
+  .hero .logo img{width:min(100%,380px);height:auto;animation:bob 3s steps(6) infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media (prefers-reduced-motion:reduce){.hero .logo img{animation:none}}
+
+  /* sections */
+  section{padding:72px 0;border-top:4px solid var(--ink)}
+  section.alt{background:var(--cream)}
+  h2{font-family:'Press Start 2P',monospace;font-size:clamp(18px,3vw,26px);margin:0 0 12px}
+  .lead{color:var(--ink-soft);font-size:20px;margin:0 0 36px;max-width:640px}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px}
+  .card{background:#fff;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:0;display:flex;flex-direction:column}
+  .card .thumb{aspect-ratio:16/10;background:var(--ink);display:flex;align-items:center;justify-content:center;border-bottom:4px solid var(--ink);overflow:hidden}
+  .card .thumb img{width:100%;height:100%;object-fit:cover}
+  .card .thumb .soon{font-family:'Press Start 2P',monospace;color:var(--gold);font-size:14px;text-align:center;line-height:1.8;padding:12px}
+  .card .body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card h3{font-family:'Press Start 2P',monospace;font-size:14px;margin:0;line-height:1.5}
+  .card p{margin:0;color:var(--ink-soft);font-size:18px}
+  .tag{align-self:flex-start;font-family:'Press Start 2P',monospace;font-size:9px;padding:6px 8px;border:3px solid var(--ink);background:var(--sun)}
+  .card .btn{margin-top:auto;align-self:flex-start;font-size:11px;padding:10px 14px;box-shadow:4px 4px 0 var(--ink)}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;max-width:720px}
+  .member{background:#fff;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:24px;display:flex;gap:18px;align-items:center}
+  .avatar{flex:none;width:96px;height:96px;object-fit:cover;background:var(--gold);border:4px solid var(--ink);box-shadow:4px 4px 0 var(--gold)}
+  .social{display:inline-block;margin-top:10px;font-family:'Press Start 2P',monospace;font-size:10px;text-decoration:none;color:var(--ink);background:var(--sun);border:3px solid var(--ink);padding:6px 10px}
+  .social:hover{background:var(--tangerine);color:var(--ink)}
+  .member h3{margin:0 0 6px;font-family:'Press Start 2P',monospace;font-size:12px;line-height:1.6}
+  .member p{margin:0;color:var(--ink-soft);font-size:17px}
+  .facts{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+  .fact{border:3px solid var(--ink);background:#fff;padding:8px 14px;font-size:17px}
+
+  /* contact */
+  .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .contact a.box{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);background:#fff;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:20px;transition:transform .08s,box-shadow .08s}
+  .contact a.box:hover{transform:translate(2px,2px);box-shadow:4px 4px 0 var(--ink);background:var(--sun)}
+  .contact .label{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--ember)}
+  .contact .value{font-size:19px;word-break:break-word}
+
+  footer{background:var(--ink);color:var(--cream);padding:40px 0;border-top:4px solid var(--ink)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  footer img{height:40px}
+  footer a{color:var(--gold)} footer a:hover{color:#fff}
+  footer small{font-size:16px;opacity:.85}
+
+  @media (max-width:760px){
+    .hero{padding:40px 0 56px}
+    .hero .wrap{grid-template-columns:1fr;text-align:center}
+    .hero .logo{order:-1}
+    .hero .logo img{width:220px}
+    .hero p{margin-left:auto;margin-right:auto}
+    .hero .actions{justify-content:center}
+    nav{justify-content:center}
+    nav a.link{font-size:10px;padding:8px}
+    section{padding:56px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#top" aria-label="CoinCat Studio home"><img class="pixel" src="assets/logo-name.png" alt="CoinCat"></a>
+      <ul>
+        <li><a class="link" href="#games">Games</a></li>
+        <li><a class="link" href="#about">About</a></li>
+        <li><a class="link" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Small games.<br><span>Big fun.</span></h1>
+        <p>CoinCat Studio makes simple, fun 2D games for your phone. Easy to pick up, hard to put down.</p>
+        <div class="actions">
+          <a class="btn" href="#games">See our games</a>
+          <a class="btn alt" href="#about">Meet the team</a>
+        </div>
+      </div>
+      <div class="logo"><img class="pixel" src="assets/logo-main.png" alt="CoinCat Studio logo: a cat paw holding up a gold CC coin"></div>
+    </div>
+  </div>
+
+  <section id="games">
+    <div class="wrap">
+      <h2>Our games</h2>
+      <p class="lead">Every game we make is small, polished and free to play.</p>
+      <div class="grid" id="game-list"></div>
+    </div>
+  </section>
+
+  <section id="about" class="alt">
+    <div class="wrap">
+      <h2>About us</h2>
+      <p class="lead">We are two friends building mobile games together with Godot. We try lots of ideas, keep each game small and finish what we start.</p>
+      <div class="team">
+        <div class="member">
+          <img class="avatar" src="assets/bakr.jpg" alt="Bakr AMGHAR">
+          <div>
+            <h3>Bakr AMGHAR</h3>
+            <p>Co-founder. Design, code and art.</p>
+            <a class="social" href="https://www.linkedin.com/in/bakr-amghar-0675b428b/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="member">
+          <img class="avatar" src="assets/rayane.jpg" alt="Rayane BENLECHHAB">
+          <div>
+            <h3>Rayane BENLECHHAB</h3>
+            <p>Co-founder. Design, code and art.</p>
+          </div>
+        </div>
+      </div>
+      <div class="facts">
+        <span class="fact">2D mobile games</span>
+        <span class="fact">Made with Godot</span>
+        <span class="fact">Android first</span>
+        <span class="fact">Free to play</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2>Say hi</h2>
+      <p class="lead">Questions, feedback or just want to follow what we build? Find us here.</p>
+      <div class="contact">
+        <a class="box" href="mailto:coincatgames@gmail.com"><span class="label">EMAIL</span><span class="value">coincatgames@gmail.com</span></a>
+        <a class="box" href="https://www.tiktok.com/@coincatgames" target="_blank" rel="noopener"><span class="label">TIKTOK</span><span class="value">@coincatgames</span></a>
+        <a class="box" href="https://github.com/CoinCat-Studio" target="_blank" rel="noopener"><span class="label">GITHUB</span><span class="value">CoinCat-Studio</span></a>
+        <a class="box" href="https://www.linkedin.com/in/bakr-amghar-0675b428b/" target="_blank" rel="noopener"><span class="label">LINKEDIN</span><span class="value">Bakr AMGHAR</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="pixel" src="assets/logo-name.png" alt="CoinCat">
+    <small>© <span id="year">2026</span> CoinCat Studio · <a href="privacy.html">Privacy Policy</a></small>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ADD A NEW GAME HERE
+   Copy one block between { and }, paste it, and change the text.
+   - image: put the picture in the "assets" folder, then write its name here
+   - link:  the Google Play link (leave "" if the game is not out yet)
+   - status: "Out now" or "Coming soon"
+   ============================================================ */
+const GAMES = [
+  {
+    title: "Our first game",
+    description: "We are working on it right now. Follow us on TikTok to see it grow!",
+    image: "",
+    link: "",
+    status: "Coming soon"
+  }
+];
+
+const list = document.getElementById('game-list');
+GAMES.forEach(g => {
+  const card = document.createElement('article');
+  card.className = 'card';
+  const thumb = g.image
+    ? `<img src="assets/${g.image}" alt="${g.title} screenshot">`
+    : `<div class="soon">COMING<br>SOON</div>`;
+  const button = g.link
+    ? `<a class="btn" href="${g.link}" target="_blank" rel="noopener">Get it on Google Play</a>`
+    : '';
+  card.innerHTML = `
+    <div class="thumb">${thumb}</div>
+    <div class="body">
+      <span class="tag">${g.status}</span>
+      <h3>${g.title}</h3>
+      <p>${g.description}</p>
+      ${button}
+    </div>`;
+  list.appendChild(card);
+});
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
