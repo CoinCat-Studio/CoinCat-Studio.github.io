@@ -4,15 +4,15 @@
 > Update it at the end of every work session: change the status, the "Next step" and add a line to the Changelog.
 > ALSO update the Google Doc (section 3) with every change: phase statuses, accounts, next steps.
 
-Last updated: 2026-11-08
+Last updated: 2026-11-12
 
 ---
 
 ## 1. The studio
 
 - **Name:** CoinCat Studio
-- **Founders:** Bakr AMGHAR — **Founder** (art direction, code and everything else). Rayane BENLECHHAB — **Co-founder** (not active yet).
-- **What we make:** 2D mobile games, any genre.
+- **Founders:** Bakr AMGHAR — **Founder** (art direction & code). Rayane BENLECHHAB — **Co-founder** (not active yet).
+- **What we make:** mobile games (2D and 3D), any genre.
 - **First game:** **GLAUDIRIUS** (subtitle "Blood & Glory" to confirm) — turn-based medieval gladiator RPG, Android, portrait, Godot 4. In development. Teaser page live on the website.
 - **Engine:** Godot 4
 - **Platform:** Android (Google Play) first. iPhone later (Rayane has a Mac).
@@ -130,10 +130,13 @@ Phase 4 — Tools setup:
 4. Then Phase 5: learn the Godot basics together and start the practice game.
 
 ### Website notes
+- **MOTO LOCO!** = main featured game on the website (teaser strip under the hero + first card in "Our games"). Page: `website/games/moto-loco.html` (bright style: purple #6A1FE0 → magenta #E23C9A → coral #FF5B5B, yellow #FFD93B, ink #160B2E; fonts Russo One + Rubik). Intro "READY · SET · GO!", speed-line canvas, moving road, trailer in a phone frame (muted autoplay loop + "Play with sound" button), ticker tapes, features with screenshots, count-up stats. Clicking it on the home page plays the "FULL THROTTLE!" transition (site zooms + blurs, purple/pink speed-line wipe).
+- `website/games/motoloco/` = web-optimized MOTO LOCO! files to upload: `trailer.mp4` (720x1280 H.264, ~7 MB), `trailer-poster.webp`, `keyart.webp` + `keyart-small.webp` (straightened key art from end_card), `shot-combo.webp`, `shot-speed.webp`, `shot-bikes.webp`, `share.jpg` (social preview). The originals in `website/games/MOTO LOCO!/` (46 MB trailer, PNGs) must NOT be uploaded.
+- GLAUDIRIUS is now the second card; its cold card + freeze transition are unchanged.
 - `website/games/glaudirius.html` = GLAUDIRIUS teaser page (dark, cold palette: night #05080F, navy #12203A, steel #3E6E9E, frost #8FB8E0, ice #CFE3F5, blood #B3202A, gold #E8B04B; fonts Cinzel + Pixelify Sans). Clicking the game on the home page plays a "freeze" transition (site turns cold, sword slash, "THE ARENA AWAITS").
 - `website/games/glaudirius-cover.jpg` and `glaudirius-logo.png` = web-optimized versions of the game's key art and logo (the big originals GLAUDIRIUS_logo.png / GLAUDIRIUS_name_logo.png don't need to be uploaded).
 - Files: `website/index.html` (Home, Games, About, Contact), `website/privacy.html` (Privacy Policy for AdMob, review before first release), `website/assets/` (logos, favicon).
-- To add a game: edit the `GAMES` list at the bottom of index.html (title, description, image, link, status).
+- To add a game: edit the `GAMES` list at the bottom of index.html (title, description, image, page, link, status, button, style). `style`: "moto" (bright + full throttle transition), "cold" (icy + freeze transition) or "" (normal). First in the list = first card.
 - Still to add before the first release: `app-ads.txt` (needs the AdMob publisher ID).
 
 ---
@@ -149,3 +152,4 @@ Phase 4 — Tools setup:
 - **2026-11-08** — Decided NOT to use Discord (team uses a shared group chat). Phase 2 done. Next: Phase 4 (Tools setup). Google Doc updated to match (phase statuses, accounts, tools, next steps).
 - **2026-11-08** — Decided: Godot 4 standard version with GDScript (not the .NET/C# version). On Windows, launch the normal Godot .exe; the _console .exe is only for seeing extra error logs.
 - **2026-11-11** — Roles updated: Bakr = Founder (art direction, code, everything), Rayane = Co-founder. Website: GLAUDIRIUS added as the next game (home teaser strip + cold game card + freeze transition) and new teaser page games/glaudirius.html. Google Doc updated (founders, Phase 3, Phase 6).
+- **2026-11-12** — Website: MOTO LOCO! (endless motorcycle runner) added as the main featured game, "Coming soon". New page games/moto-loco.html with its own bright speed style, trailer (compressed 46 MB → ~7 MB), and "FULL THROTTLE!" transition from the home page. Home teaser strip + first card now MOTO LOCO!, GLAUDIRIUS second (cold transition kept). Optimized assets in games/motoloco/ (originals in games/MOTO LOCO! stay out of the upload). Checked on desktop (1440px) and phone (390px). Also: Bakr card now "Founder. Art direction & code.", "2D" removed from the site texts (we make 2D and 3D mobile games). Pushed to the website repo with git (not the web upload).

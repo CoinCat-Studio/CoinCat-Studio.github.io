@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CoinCat Studio — Simple, fun 2D mobile games</title>
-<meta name="description" content="CoinCat Studio is a small indie studio making simple, fun 2D games for phones.">
+<title>CoinCat Studio — Simple, fun mobile games</title>
+<meta name="description" content="CoinCat Studio is a small indie studio making simple, fun mobile games.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --gold:#FFD23F; --sun:#FFDA4A; --tangerine:#F58E1E; --ember:#D96A12;
@@ -78,15 +78,53 @@
   .card.cold .btn{background:#CFE3F5;border-color:#05080F;box-shadow:4px 4px 0 #B3202A;color:#05080F}
   .card.cold .btn:hover{background:#fff}
 
-  /* "next game" teaser strip */
-  .teaser{display:block;text-decoration:none;color:#E3EEF9;background:#0B1220;border-top:4px solid var(--ink);position:relative;overflow:hidden}
-  .teaser .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap;position:relative;z-index:1}
-  .teaser span.k{font-family:'Press Start 2P',monospace;font-size:11px;color:#8FB8E0;letter-spacing:.08em}
-  .teaser img{height:72px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
-  .teaser span.go{font-family:'Press Start 2P',monospace;font-size:11px;color:#CFE3F5}
-  .teaser::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 30%, rgba(143,184,224,.18) 45%, transparent 60%);transform:translateX(-100%);animation:sheen 4.5s ease-in-out infinite}
-  .teaser:hover span.go{color:#fff}
+  /* MOTO LOCO! card — bright, fast, slanted */
+  .card.moto{background:linear-gradient(160deg,#6A1FE0,#B42FC4 55%,#FF5B5B);color:#fff;border-radius:0}
+  .card.moto .thumb{position:relative;background:linear-gradient(-45deg,rgba(255,255,255,.1) 0 25%,transparent 25% 50%,rgba(255,255,255,.1) 50% 75%,transparent 75%) 0 0/60px 60px,linear-gradient(115deg,#6A1FE0,#E23C9A 70%,#FF5B5B)}
+  .card.moto .thumb img{width:auto;height:88%;aspect-ratio:840/820;object-fit:contain;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);transform:rotate(-3deg);transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+  .card.moto:hover .thumb img{transform:scale(1.06) rotate(1deg)}
+  .card.moto .thumb::after{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:0;transition:opacity .25s;
+     background:repeating-conic-gradient(rgba(255,255,255,.7) 0 .7deg,transparent .7deg 8deg);
+     -webkit-mask:radial-gradient(circle,transparent 30%,#000 60%);mask:radial-gradient(circle,transparent 30%,#000 60%);animation:spin 2s linear infinite}
+  .card.moto:hover .thumb::after{opacity:.6}
+  .card.moto h3{font-family:'Russo One',sans-serif;font-weight:400;font-size:24px;color:#FFD93B;text-shadow:0 3px 0 var(--ink);transform:skewX(-8deg);transform-origin:left}
+  .card.moto p{color:#fff}
+  .card.moto .tag{background:#FFD93B;color:var(--ink)}
+  .card.moto .btn{background:#FFD93B;font-family:'Russo One',sans-serif;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+  .card.moto .btn:hover{background:#fff}
+
+  /* "new game" teaser strip (MOTO LOCO!) */
+  .teaser{display:block;text-decoration:none;color:#fff;background:linear-gradient(100deg,#6A1FE0,#8B3DF0 30%,#E23C9A 70%,#FF5B5B);border-top:4px solid var(--ink);position:relative;overflow:hidden;isolation:isolate}
+  .teaser::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(-45deg,rgba(255,255,255,.1) 0 25%,transparent 25% 50%,rgba(255,255,255,.1) 50% 75%,transparent 75%);background-size:70px 70px;animation:stripes 1.4s linear infinite}
+  .teaser::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%);transform:translateX(-100%);animation:sheen 3.5s ease-in-out infinite}
+  .teaser .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px 20px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap}
+  .teaser span.k{font-family:'Press Start 2P',monospace;font-size:11px;letter-spacing:.08em;background:var(--ink);color:#FFD93B;padding:8px 10px}
+  .teaser .logo{display:flex;align-items:center;gap:14px}
+  .teaser .logo img{width:70px;height:70px;object-fit:cover;object-position:50% 20%;border:3px solid var(--ink);border-radius:12px;transform:rotate(-6deg);box-shadow:4px 4px 0 var(--ink)}
+  .teaser .logo b{font-family:'Russo One',sans-serif;font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1;color:#FFD93B;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 4px 0 var(--ink);transform:skewX(-9deg);display:inline-block;transition:transform .2s}
+  .teaser span.go{font-family:'Press Start 2P',monospace;font-size:11px;color:#fff;transition:transform .2s}
+  .teaser:hover .logo b{transform:skewX(-14deg) translateX(6px)}
+  .teaser:hover span.go{transform:translateX(8px)}
   @keyframes sheen{0%,40%{transform:translateX(-100%)}80%,100%{transform:translateX(100%)}}
+  @keyframes stripes{to{background-position:70px 0}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.teaser::before,.teaser::after,.card.moto .thumb::after{animation:none}}
+
+  /* "full throttle" transition overlay (MOTO LOCO!) */
+  .throttle{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden;visibility:hidden}
+  .throttle.on{visibility:visible;pointer-events:all}
+  .throttle .panel{position:absolute;inset:0 -30%;background:linear-gradient(115deg,#6A1FE0,#8B3DF0 30%,#E23C9A 70%,#FF5B5B);transform:translateX(-130%) skewX(-20deg)}
+  .throttle.on .panel{animation:rushin .5s .1s cubic-bezier(.7,0,.3,1) forwards}
+  @keyframes rushin{to{transform:translateX(0) skewX(0)}}
+  .throttle .lines{position:absolute;inset:-50%;opacity:0;background:repeating-conic-gradient(rgba(255,255,255,.6) 0 .6deg,transparent .6deg 7deg);
+     -webkit-mask:radial-gradient(circle,transparent 18%,#000 45%);mask:radial-gradient(circle,transparent 18%,#000 45%)}
+  .throttle.on .lines{animation:linesin .3s .45s forwards,spin 1.6s linear infinite}
+  @keyframes linesin{to{opacity:1}}
+  .throttle .word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Russo One',sans-serif;font-size:clamp(40px,9vw,110px);line-height:.95;color:#FFD93B;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:0 8px 0 var(--ink);opacity:0;transform:translateX(-60vw) skewX(-12deg)}
+  .throttle.on .word{animation:wordin .4s .55s cubic-bezier(.2,1.5,.4,1) forwards}
+  @keyframes wordin{to{opacity:1;transform:skewX(-12deg)}}
+  body.zoom{overflow:hidden}
+  body.zoom main, body.zoom header{filter:blur(3px) saturate(1.6);transform:scale(1.05) translateX(3%);transition:filter .35s,transform .45s cubic-bezier(.7,0,.3,1)}
 
   /* cold transition overlay */
   .freeze{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:0;background:
@@ -163,7 +201,7 @@
     <div class="wrap">
       <div>
         <h1>Small games.<br><span>Big fun.</span></h1>
-        <p>CoinCat Studio makes simple, fun 2D games for your phone. Easy to pick up, hard to put down.</p>
+        <p>CoinCat Studio makes simple, fun games for your phone. Easy to pick up, hard to put down.</p>
         <div class="actions">
           <a class="btn" href="#games">See our games</a>
           <a class="btn alt" href="#about">Meet the team</a>
@@ -173,11 +211,11 @@
     </div>
   </div>
 
-  <a class="teaser" href="games/glaudirius.html" data-cold aria-label="Next game: Glaudirius, coming soon. Enter the arena.">
+  <a class="teaser" href="games/moto-loco.html" data-moto aria-label="New game: MOTO LOCO!, coming soon. Hit the road.">
     <div class="wrap">
-      <span class="k">NEXT GAME · COMING SOON</span>
-      <img src="games/glaudirius-logo.png" alt="Glaudirius">
-      <span class="go">ENTER THE ARENA ›</span>
+      <span class="k">NEW GAME · COMING SOON</span>
+      <span class="logo"><img src="games/motoloco/keyart-small.webp" alt=""><b>MOTO LOCO!</b></span>
+      <span class="go">HIT THE ROAD ›</span>
     </div>
   </a>
 
@@ -198,7 +236,7 @@
           <img class="avatar" src="assets/bakr.jpg" alt="Bakr AMGHAR">
           <div>
             <h3>Bakr AMGHAR</h3>
-            <p>Founder. Art direction & code.</p>
+            <p>Founder. Art direction &amp; code.</p>
             <a class="social" href="https://www.linkedin.com/in/bakr-amghar-0675b428b/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
@@ -211,7 +249,7 @@
         </div>
       </div>
       <div class="facts">
-        <span class="fact">2D mobile games</span>
+        <span class="fact">Mobile games</span>
         <span class="fact">Made with Godot</span>
         <span class="fact">Android first</span>
         <span class="fact">Free to play</span>
@@ -249,9 +287,23 @@
    - page:   the game's own page (for example "games/my-game.html"), or ""
    - link:   the Google Play link (leave "" if the game is not out yet)
    - status: "Out now" or "Coming soon"
-   - cold:   true = dark, icy card style with the freeze transition
+   - button: text on the button that opens the game's page
+   - style:  "moto" = bright card + "full throttle" transition
+             "cold" = dark, icy card + freeze transition
+             ""     = normal studio card
+   The first game in the list is shown first.
    ============================================================ */
 const GAMES = [
+  {
+    title: "MOTO LOCO!",
+    description: "Endless highway chaos. Dodge the traffic, graze cars for combos and push your bike to 800 km/h.",
+    image: "games/motoloco/keyart-small.webp",
+    page: "games/moto-loco.html",
+    link: "",
+    status: "Coming soon",
+    button: "Hit the road",
+    style: "moto"
+  },
   {
     title: "GLAUDIRIUS",
     description: "Step into the arena. Turn-based gladiator battles where every blade, every armor piece and every choice decides who walks out alive.",
@@ -259,19 +311,20 @@ const GAMES = [
     page: "games/glaudirius.html",
     link: "",
     status: "Coming soon",
-    cold: true
+    button: "Enter the arena",
+    style: "cold"
   }
 ];
 
 const list = document.getElementById('game-list');
 GAMES.forEach(g => {
   const card = document.createElement('article');
-  card.className = 'card' + (g.cold ? ' cold' : '');
+  card.className = 'card' + (g.style ? ' ' + g.style : '');
   const thumb = g.image
     ? `<img src="${g.image}" alt="${g.title}">`
     : `<div class="soon">COMING<br>SOON</div>`;
   let button = '';
-  if (g.page) button += `<a class="btn" href="${g.page}" ${g.cold ? 'data-cold' : ''}>Enter the arena</a>`;
+  if (g.page) button += `<a class="btn" href="${g.page}" ${g.style ? 'data-' + g.style : ''}>${g.button || 'See the game'}</a>`;
   if (g.link) button += `<a class="btn" href="${g.link}" target="_blank" rel="noopener">Get it on Google Play</a>`;
   card.innerHTML = `
     <div class="thumb">${thumb}</div>
@@ -301,10 +354,28 @@ document.addEventListener('click', e => {
   requestAnimationFrame(() => freeze.classList.add('on'));
   setTimeout(() => { window.location.href = a.getAttribute('href'); }, 1250);
 });
-// coming back with the browser's Back button: thaw the page again
+/* ---------- Full throttle transition: the site speeds off before the MOTO LOCO! page ---------- */
+const throttle = document.createElement('div');
+throttle.className = 'throttle';
+throttle.setAttribute('aria-hidden', 'true');
+throttle.innerHTML = '<div class="panel"></div><div class="lines"></div><div class="word">FULL<br>THROTTLE!</div>';
+document.body.appendChild(throttle);
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-moto]');
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey || reduce) return;
+  e.preventDefault();
+  document.body.classList.add('zoom');
+  throttle.classList.add('on');
+  setTimeout(() => { window.location.href = a.getAttribute('href'); }, 1150);
+});
+
+// coming back with the browser's Back button: reset both transitions
 window.addEventListener('pageshow', () => {
   freeze.classList.remove('on');
   document.body.classList.remove('chill');
+  throttle.classList.remove('on');
+  document.body.classList.remove('zoom');
 });
 </script>
 </body>

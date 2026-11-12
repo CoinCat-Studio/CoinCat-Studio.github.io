@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOTO LOCO! — Coming soon · CoinCat Studio</title>
+<meta name="description" content="MOTO LOCO!: a colorful, fast endless motorcycle runner for Android by CoinCat Studio. Dodge the traffic, chain combos, hit 800 km/h. Coming soon.">
+<meta property="og:title" content="MOTO LOCO! — Dodge. Graze. Combo!">
+<meta property="og:description" content="An endless motorcycle runner for Android. Coming soon from CoinCat Studio.">
+<meta property="og:image" content="https://coincat-studio.github.io/games/motoloco/share.jpg">
+<meta name="theme-color" content="#6A1FE0">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Rubik:wght@400;500;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#160B2E; --night:#1E0F3D; --grape:#6A1FE0; --violet:#8B3DF0;
+    --magenta:#E23C9A; --coral:#FF5B5B; --orange:#FF8A1F; --sun:#FFD93B;
+    --cyan:#2ED3FF; --sky:#1E7BFF; --lime:#3BE07A; --white:#FFFFFF; --soft:#E8DDFB;
+    --rush:linear-gradient(115deg,var(--grape) 0%,var(--violet) 30%,var(--magenta) 70%,var(--coral) 100%);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--ink)}
+  body{margin:0;background:var(--ink);color:var(--white);font-family:'Rubik',system-ui,sans-serif;font-size:18px;line-height:1.55;overflow-x:hidden}
+  a{color:var(--sun)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .label{display:inline-block;font-family:'Russo One',sans-serif;font-size:13px;letter-spacing:.16em;color:var(--sun);text-transform:uppercase}
+  h2{font-family:'Russo One',sans-serif;font-weight:400;font-size:clamp(32px,5.4vw,56px);line-height:1.02;margin:10px 0 18px;transform:skewX(-6deg);transform-origin:left;text-transform:uppercase}
+  h2 em{font-style:normal;color:var(--sun);text-shadow:0 4px 0 var(--ink)}
+  /* animated diagonal stripes, like the store art */
+  .stripes{background-image:linear-gradient(-45deg,rgba(255,255,255,.08) 0 25%,transparent 25% 50%,rgba(255,255,255,.08) 50% 75%,transparent 75%);background-size:110px 110px;animation:stripes 2.4s linear infinite}
+  @keyframes stripes{to{background-position:110px 0}}
+
+  /* ---------- intro: continues the "full throttle" wipe from the studio page ---------- */
+  .curtain{position:fixed;inset:0;z-index:60;pointer-events:none;background:var(--rush);display:flex;align-items:center;justify-content:center;overflow:hidden;
+    animation:wipe .55s 1.05s cubic-bezier(.7,0,.3,1) forwards}
+  .curtain::before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.55) 0 .6deg,transparent .6deg 7deg);
+    -webkit-mask:radial-gradient(circle,transparent 18%,#000 45%);mask:radial-gradient(circle,transparent 18%,#000 45%);animation:spin 1.6s linear infinite}
+  .curtain .count{position:relative;font-family:'Russo One',sans-serif;font-size:clamp(56px,14vw,150px);color:var(--sun);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:0 8px 0 var(--ink);transform:skewX(-10deg)}
+  .curtain .count span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.4);opacity:0;white-space:nowrap}
+  .curtain .count span:nth-child(1){animation:pop .33s .05s ease-out}
+  .curtain .count span:nth-child(2){animation:pop .33s .38s ease-out}
+  .curtain .count span:nth-child(3){animation:pop .5s .71s ease-out forwards;color:var(--white)}
+  .curtain .count{width:1px;height:1px}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}35%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}75%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}
+  @keyframes wipe{to{clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);visibility:hidden}}
+  .curtain{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- top bar ---------- */
+  .bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:linear-gradient(rgba(22,11,46,.8),transparent);pointer-events:none}
+  .bar>*{pointer-events:auto}
+  .bar.solid{background:rgba(22,11,46,.92);box-shadow:0 4px 0 rgba(0,0,0,.25);transition:background .3s}
+  .bar a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);font-family:'Press Start 2P',monospace;font-size:10px}
+  .bar a:hover{color:var(--sun)}
+  .bar img{height:30px;image-rendering:pixelated}
+  .bar .label{font-size:11px;background:var(--sun);color:var(--ink);padding:6px 10px;transform:skewX(-10deg);box-shadow:3px 3px 0 var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate;background:var(--rush)}
+  .hero .stripes{position:absolute;inset:0;z-index:-4}
+  canvas#speed{position:absolute;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none}
+  .road{position:absolute;left:50%;bottom:-2px;width:min(1400px,190%);height:46%;z-index:-2;transform:translateX(-50%) perspective(320px) rotateX(58deg);transform-origin:50% 100%;
+    background:linear-gradient(90deg,transparent 14%,var(--white) 14% 15%,#2B1A55 15% 85%,var(--white) 85% 86%,transparent 86%);
+    -webkit-mask:linear-gradient(transparent,#000 55%);mask:linear-gradient(transparent,#000 55%);opacity:.85}
+  .road::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,var(--sun) 0 56px,transparent 56px 120px);
+    -webkit-mask:linear-gradient(90deg,transparent calc(50% - 5px),#000 calc(50% - 5px) calc(50% + 5px),transparent calc(50% + 5px));mask:linear-gradient(90deg,transparent calc(50% - 5px),#000 calc(50% - 5px) calc(50% + 5px),transparent calc(50% + 5px));animation:dash .28s linear infinite}
+  @keyframes dash{from{background-position:0 0}to{background-position:0 120px}}
+  .hero .glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 70% 45%,rgba(255,217,59,.25),transparent 45%),linear-gradient(180deg,transparent 70%,rgba(22,11,46,.85))}
+
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-top:96px;padding-bottom:70px;width:100%}
+  .status{display:inline-flex;align-items:center;gap:10px;font-family:'Russo One',sans-serif;font-size:13px;letter-spacing:.14em;background:var(--ink);color:var(--white);padding:9px 14px;transform:skewX(-10deg);box-shadow:4px 4px 0 var(--sun);opacity:0;animation:zoomin .5s 1.75s ease-out forwards}
+  .status i{width:10px;height:10px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  h1.title{margin:18px 0 6px;font-family:'Russo One',sans-serif;font-weight:400;line-height:.88;font-size:clamp(64px,11.5vw,148px);color:var(--sun);text-transform:uppercase;
+    -webkit-text-stroke:6px var(--ink);paint-order:stroke fill;text-shadow:0 9px 0 var(--ink),0 18px 30px rgba(22,11,46,.45);transform:skewX(-9deg)}
+  h1.title span{display:block;opacity:0}
+  h1.title span:nth-child(1){animation:drive .55s 1.35s cubic-bezier(.2,1.4,.4,1) forwards;color:var(--white)}
+  h1.title span:nth-child(2){animation:drive .55s 1.5s cubic-bezier(.2,1.4,.4,1) forwards}
+  @keyframes drive{0%{opacity:0;transform:translateX(-120vw);filter:blur(12px)}60%{opacity:1;filter:blur(0)}100%{opacity:1;transform:none}}
+  .tagline{font-size:clamp(19px,2.3vw,23px);font-weight:500;max-width:540px;margin:18px 0 28px;color:var(--white);text-shadow:0 2px 0 rgba(22,11,46,.35);opacity:0;animation:zoomin .5s 1.9s ease-out forwards}
+  .ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:zoomin .5s 2.05s ease-out forwards}
+  @keyframes zoomin{from{opacity:0;transform:translateX(-30px) skewX(-10deg)}to{opacity:1}}
+  .status{animation-name:zoominsk}
+  @keyframes zoominsk{from{opacity:0;transform:translateX(-30px) skewX(-10deg)}to{opacity:1;transform:skewX(-10deg)}}
+  .shake{animation:shake .4s 1.95s both}
+  @keyframes shake{0%,100%{transform:none}20%{transform:translate(-7px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
+
+  /* buttons: chunky, slanted, like in-game buttons */
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Russo One',sans-serif;font-size:16px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border:3px solid var(--ink);border-radius:14px;cursor:pointer;
+    transition:transform .1s,box-shadow .1s,filter .1s}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn.go{background:linear-gradient(180deg,#FFE46B,var(--sun) 50%,#F5B800);color:var(--ink);box-shadow:0 6px 0 var(--ink)}
+  .btn.pink{background:linear-gradient(180deg,#FF7DC0,var(--magenta));color:var(--white);box-shadow:0 6px 0 var(--ink)}
+  .btn.ghost{background:rgba(22,11,46,.55);color:var(--white);border-color:var(--white);box-shadow:0 6px 0 rgba(22,11,46,.7)}
+  .btn:hover{transform:translateY(-3px) rotate(-1.5deg);filter:brightness(1.06)}
+  .btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
+
+  /* trailer in a phone */
+  .phone-wrap{position:relative;justify-self:center;opacity:0;animation:phonein .8s 1.6s cubic-bezier(.2,1.3,.4,1) forwards}
+  @keyframes phonein{from{opacity:0;transform:translateY(80px) rotate(10deg) scale(.85)}to{opacity:1;transform:none}}
+  .phone{position:relative;width:min(330px,72vw);aspect-ratio:9/16;border:10px solid var(--ink);border-radius:38px;background:var(--ink);overflow:hidden;transform:rotate(3deg);
+    box-shadow:0 0 0 3px rgba(255,255,255,.25),18px 22px 0 rgba(22,11,46,.55),0 30px 80px rgba(255,217,59,.25);animation:float 4s ease-in-out infinite}
+  @keyframes float{50%{transform:rotate(1.5deg) translateY(-12px)}}
+  .phone video{display:block;width:100%;height:100%;object-fit:cover;background:var(--ink)}
+  .sound{position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);white-space:nowrap;z-index:2}
+  .sound .off{display:none}
+  .sound.on .on{display:none} .sound.on .off{display:inline}
+  .badge{position:absolute;z-index:3;width:118px;height:118px;display:grid;place-items:center;text-align:center;font-family:'Russo One',sans-serif;font-size:16px;line-height:1.05;color:var(--ink);
+    clip-path:polygon(50% 0%,61% 11%,75% 6%,79% 21%,94% 25%,89% 39%,100% 50%,89% 61%,94% 75%,79% 79%,75% 94%,61% 89%,50% 100%,39% 89%,25% 94%,21% 79%,6% 75%,11% 61%,0% 50%,11% 39%,6% 25%,21% 21%,25% 6%,39% 11%)}
+  .badge span{transform:rotate(-14deg)}
+  .phone-wrap .badge{top:-30px;right:-46px;background:var(--sun);animation:wobble 2.4s ease-in-out infinite}
+  @keyframes wobble{50%{transform:rotate(14deg) scale(1.06)}}
+  .scroll{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:var(--white);text-decoration:none;font-family:'Russo One',sans-serif;font-size:12px;letter-spacing:.2em;opacity:.85;animation:bob 1.6s infinite}
+  @keyframes bob{50%{transform:translate(-50%,6px)}}
+
+  /* ---------- crossing ticker tapes ---------- */
+  .tapes{position:relative;height:150px;overflow:hidden;background:var(--ink)}
+  .tape{position:absolute;left:-5%;width:110%;overflow:hidden;border-block:4px solid var(--ink);padding:12px 0;white-space:nowrap;font-family:'Russo One',sans-serif;font-size:clamp(20px,3vw,30px);text-transform:uppercase}
+  .tape div{display:inline-block;animation:ticker 18s linear infinite}
+  .tape b{font-weight:400;padding:0 18px}
+  .tape i{font-style:normal;padding:0 6px}
+  .tape.a{top:28px;background:var(--sun);color:var(--ink);transform:rotate(-3deg);z-index:2}
+  .tape.b{top:52px;background:var(--magenta);color:var(--white);transform:rotate(2.5deg)}
+  .tape.b div{animation-direction:reverse;animation-duration:22s}
+  @keyframes ticker{to{transform:translateX(-50%)}}
+
+  /* ---------- sections ---------- */
+  section{position:relative;padding:100px 0}
+  .ride{background:linear-gradient(180deg,var(--ink),var(--night))}
+  .ride .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .ride p{color:var(--soft);margin:0 0 16px;font-size:19px}
+  .ride p strong{color:var(--white)}
+  .art{position:relative;margin:0;transform:rotate(-3deg)}
+  .art img{display:block;width:100%;height:auto;border:6px solid var(--ink);border-radius:22px;box-shadow:0 0 0 4px var(--sun),16px 18px 0 var(--magenta),0 30px 70px rgba(0,0,0,.5)}
+  .art .badge{bottom:-36px;left:-30px;background:var(--lime);color:var(--ink);animation:wobble 2.8s ease-in-out infinite reverse}
+
+  .features{background:var(--night)}
+  .features .head{text-align:center;max-width:680px;margin:0 auto 56px}
+  .features .head h2{transform-origin:center}
+  .features .head p{color:var(--soft);margin:0}
+  .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+  .f{position:relative;border:4px solid var(--ink);border-radius:26px;padding:26px 24px 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 0 var(--ink);transition:transform .25s cubic-bezier(.2,1.4,.4,1)}
+  .f.blue{background:linear-gradient(170deg,var(--sky),#18B8E8)}
+  .f.purple{background:linear-gradient(170deg,var(--grape),var(--magenta))}
+  .f.green{background:linear-gradient(170deg,#1FAE5C,#1E7BFF)}
+  .f:hover{transform:translateY(-8px) rotate(-1.5deg)}
+  .f h3{font-family:'Russo One',sans-serif;font-weight:400;font-size:26px;line-height:1.05;margin:0 0 10px;text-transform:uppercase;color:var(--sun);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink)}
+  .f p{margin:0 0 22px;font-size:17px;font-weight:500}
+  .f .shot{margin-top:auto;align-self:center;width:78%;aspect-ratio:9/12;overflow:hidden;border:6px solid var(--ink);border-bottom:0;border-radius:24px 24px 0 0;background:var(--ink);transform:translateY(14px);transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+  .f .shot img{display:block;width:100%;height:auto;margin-top:-22%}
+  .f:hover .shot{transform:translateY(0)}
+
+  /* speedometer-style numbers */
+  .stats{background:var(--ink);padding:70px 0;overflow:hidden}
+  .stats ul{list-style:none;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+  .stats li{text-align:center;padding:18px 8px;border-radius:18px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08)}
+  .stats .n{display:block;font-family:'Russo One',sans-serif;font-size:clamp(34px,4.6vw,54px);line-height:1;color:var(--sun);transform:skewX(-8deg);text-shadow:0 4px 0 var(--magenta)}
+  .stats .n small{font-size:.38em;margin-left:4px;color:var(--white);text-shadow:none}
+  .stats .n.inf{font-family:"Rubik",sans-serif;font-weight:800;font-size:clamp(46px,6vw,70px);line-height:.75}
+  .stats .t{display:block;margin-top:10px;font-size:15px;font-weight:500;color:var(--soft);text-transform:uppercase;letter-spacing:.08em}
+
+  .final{text-align:center;background:var(--rush);overflow:hidden;isolation:isolate;padding-bottom:150px}
+  .final .stripes{position:absolute;inset:0;z-index:-1}
+  .final h2{transform-origin:center}
+  .final p{max-width:560px;margin:0 auto 32px;font-size:20px;font-weight:500}
+  .final .ctas{justify-content:center;opacity:1;animation:none}
+  .final .lane{position:absolute;left:0;right:0;bottom:0;height:90px;background:#2B1A55;border-top:6px solid var(--white);overflow:hidden}
+  .final .lane::before{content:"";position:absolute;left:0;top:50%;width:200%;height:8px;margin-top:-4px;background:repeating-linear-gradient(90deg,var(--sun) 0 60px,transparent 60px 120px);animation:lane .35s linear infinite}
+  @keyframes lane{to{transform:translateX(-120px)}}
+  .final .bike{position:absolute;bottom:22px;left:-120px;width:96px;z-index:1;animation:ridebike 5.5s linear infinite}
+  @keyframes ridebike{0%{left:-120px}55%{left:calc(100% + 40px)}100%{left:calc(100% + 40px)}}
+
+  footer{background:var(--ink);padding:36px 20px;text-align:center;color:var(--soft);font-size:16px}
+  footer a{color:var(--sun)}
+  footer img{height:34px;image-rendering:pixelated;display:block;margin:0 auto 12px}
+
+  /* scroll reveal: things zoom in from the left, like they just overtook you */
+  .reveal{opacity:0;transform:translateX(-60px) skewX(-8deg);transition:opacity .6s ease,transform .6s cubic-bezier(.2,1.3,.4,1)}
+  .reveal.in{opacity:1;transform:none}
+  .cards .reveal:nth-child(2){transition-delay:.1s} .cards .reveal:nth-child(3){transition-delay:.2s}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;text-align:center;gap:48px;padding-top:76px;padding-bottom:90px}
+    .hero-grid .ctas{justify-content:center}
+    .tagline{margin-left:auto;margin-right:auto}
+    h1.title{transform-origin:center}
+    .phone-wrap .badge{right:-24px;width:96px;height:96px;font-size:13px}
+    .ride .wrap{grid-template-columns:1fr;gap:56px}
+    .art{max-width:520px;margin:0 auto}
+    .cards{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+    .stats ul{grid-template-columns:repeat(2,1fr)}
+    .stats li:last-child{grid-column:1/-1}
+    section{padding:76px 0}
+    .scroll{display:none}
+  }
+  @media (max-width:520px){
+    .bar a span{display:none}
+    h1.title{-webkit-text-stroke:4px var(--ink);text-shadow:0 6px 0 var(--ink)}
+    .btn{font-size:14px;padding:13px 18px}
+    .art .badge{left:-10px;width:92px;height:92px;font-size:13px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .final .bike{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="curtain" aria-hidden="true"><div class="count"><span>READY</span><span>SET</span><span>GO!</span></div></div>
+
+<div class="bar">
+  <a href="../index.html#games" aria-label="Back to CoinCat Studio"><span>‹ BACK TO</span><img src="../assets/logo-name.png" alt="CoinCat"></a>
+  <span class="label">Coming soon</span>
+</div>
+
+<header class="hero" id="top">
+  <div class="stripes" aria-hidden="true"></div>
+  <canvas id="speed" aria-hidden="true"></canvas>
+  <div class="road" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <div class="wrap hero-grid">
+    <div class="shake">
+      <div class="status"><i></i>IN THE GARAGE · ANDROID</div>
+      <h1 class="title" aria-label="MOTO LOCO!"><span>Moto</span><span>Loco!</span></h1>
+      <p class="tagline">Endless highway chaos. Dodge the traffic, graze cars for combos and push your bike to 800 km/h. One more run? Always.</p>
+      <div class="ctas">
+        <a class="btn go" href="#trailer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Watch the trailer</a>
+        <a class="btn ghost" href="https://www.tiktok.com/@coincatgames" target="_blank" rel="noopener">Follow on TikTok</a>
+      </div>
+    </div>
+
+    <div class="phone-wrap" id="trailer">
+      <div class="phone">
+        <video id="vid" src="motoloco/trailer.mp4" poster="motoloco/trailer-poster.webp" muted loop playsinline preload="metadata" aria-label="MOTO LOCO! gameplay trailer"></video>
+      </div>
+      <div class="badge" aria-hidden="true"><span>800<br>KM/H!</span></div>
+      <button class="btn pink sound" id="sound" type="button">
+        <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:8px"><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>Play with sound</span>
+        <span class="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:8px"><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>Mute</span>
+      </button>
+    </div>
+  </div>
+  <a class="scroll" href="#ride" aria-label="Scroll down">▼ RIDE ▼</a>
+</header>
+
+<div class="tapes" aria-hidden="true">
+  <div class="tape a"><div><b>Dodge</b><i>★</i><b>Graze</b><i>★</i><b>Combo</b><i>★</i><b>Smash</b><i>★</i><b>800 km/h</b><i>★</i><b>Dodge</b><i>★</i><b>Graze</b><i>★</i><b>Combo</b><i>★</i><b>Smash</b><i>★</i><b>800 km/h</b><i>★</i></div></div>
+  <div class="tape b"><div><b>Go Moto Loco!</b><i>✦</i><b>Near miss!</b><i>✦</i><b>One more run</b><i>✦</i><b>Go Moto Loco!</b><i>✦</i><b>Near miss!</b><i>✦</i><b>One more run</b><i>✦</i></div></div>
+</div>
+
+<main>
+  <section class="ride" id="ride">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="label">The highway</span>
+        <h2>The road never ends.<br><em>Neither does the chaos.</em></h2>
+        <p>Cars, buses and trucks fill every lane. You have a bike, a helmet and <strong>zero chill</strong>.</p>
+        <p>In <strong>MOTO LOCO!</strong> you weave through traffic, scrape past bumpers for near-miss bonuses and chain them into huge combos. Go faster, score bigger, crash, and hit play again.</p>
+      </div>
+      <figure class="art reveal">
+        <img src="motoloco/keyart.webp" width="840" height="820" alt="A rider on a red motorbike speeds out of a big explosion while cars fly through the air, under the MOTO LOCO! logo" loading="lazy">
+        <div class="badge" aria-hidden="true"><span>FREE<br>TO PLAY!</span></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Why you'll keep playing</span>
+        <h2>Fast. Loud. <em>Loco.</em></h2>
+        <p>Made for quick runs on your phone. Easy to start, very hard to put down.</p>
+      </div>
+      <div class="cards">
+        <article class="f blue reveal">
+          <h3>Dodge &amp; graze</h3>
+          <p>Slip between cars at full speed. Scrape past them on purpose for near-miss points.</p>
+          <div class="shot"><img src="motoloco/shot-combo.webp" width="540" height="960" alt="Gameplay: a red motorbike weaves through traffic on a sunny highway, combo x3" loading="lazy"></div>
+        </article>
+        <article class="f purple reveal">
+          <h3>Go Moto Loco!</h3>
+          <p>Chain combos, fill the meter and go full loco at up to 800 km/h.</p>
+          <div class="shot"><img src="motoloco/shot-speed.webp" width="540" height="960" alt="Gameplay: confetti and coins fly as the rider hits MOTO LOCO mode" loading="lazy"></div>
+        </article>
+        <article class="f green reveal">
+          <h3>13 crazy bikes</h3>
+          <p>Grab coins and unlock them all, from the Neon Viper to the Rainbow Rocket.</p>
+          <div class="shot"><img src="motoloco/shot-bikes.webp" width="540" height="960" alt="Garage screen showing the glowing green Neon Viper bike" loading="lazy"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <ul class="wrap reveal">
+      <li><span class="n" data-count="800">0<small>KM/H</small></span><span class="t">Top speed</span></li>
+      <li><span class="n" data-count="13">0</span><span class="t">Crazy bikes</span></li>
+      <li><span class="n" data-count="1">0</span><span class="t">Tap to ride</span></li>
+      <li><span class="n inf">∞</span><span class="t">Endless road</span></li>
+      <li><span class="n">FREE</span><span class="t">Android · Portrait</span></li>
+    </ul>
+  </div>
+
+  <section class="final">
+    <div class="stripes" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <span class="label" style="color:var(--white)">Coming soon to Google Play</span>
+      <h2>Ready to go <em>loco?</em></h2>
+      <p>MOTO LOCO! is almost ready to ride. Follow us to see new clips and be first to know the release date.</p>
+      <div class="ctas">
+        <a class="btn go" href="https://www.tiktok.com/@coincatgames" target="_blank" rel="noopener">TikTok @coincatgames</a>
+        <a class="btn ghost" href="https://coincatstudio.itch.io/" target="_blank" rel="noopener">itch.io</a>
+        <a class="btn ghost" href="mailto:coincatgames@gmail.com?subject=MOTO%20LOCO!%20-%20notify%20me">Notify me by email</a>
+      </div>
+    </div>
+    <div class="lane" aria-hidden="true"></div>
+    <svg class="bike" viewBox="0 0 96 56" aria-hidden="true">
+      <g stroke="#160B2E" stroke-width="3" stroke-linejoin="round">
+        <path d="M2 30h14M0 38h12M4 46h10" stroke="#FFD93B" stroke-linecap="round"/>
+        <circle cx="22" cy="42" r="11" fill="#160B2E"/><circle cx="76" cy="42" r="11" fill="#160B2E"/>
+        <circle cx="22" cy="42" r="4" fill="#FFD93B"/><circle cx="76" cy="42" r="4" fill="#FFD93B"/>
+        <path d="M22 42 38 28h22l16 14H50z" fill="#FF5B5B"/>
+        <path d="M60 28 70 18h10" fill="none"/>
+        <path d="M36 28 44 12h12l6 16z" fill="#160B2E"/>
+        <circle cx="52" cy="9" r="8" fill="#FF8A1F"/>
+      </g>
+    </svg>
+  </section>
+</main>
+
+<footer>
+  <a href="../index.html"><img src="../assets/logo-name.png" alt="CoinCat Studio"></a>
+  A game by CoinCat Studio · <a href="../index.html">Studio home</a> · <a href="../privacy.html">Privacy Policy</a>
+</footer>
+
+<script>
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- speed streaks rushing out of the vanishing point ---------- */
+(() => {
+  const c = document.getElementById('speed');
+  if (!c || reduce) return;
+  const ctx = c.getContext('2d');
+  const colors = ['#FFFFFF', '#FFD93B', '#2ED3FF', '#FF9AD5'];
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w, h, cx, cy, parts = [], visible = true, boost = 6; // starts in "boost", calms down after the intro
+  function size() {
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = w * (w > 900 ? 0.62 : 0.5); cy = h * 0.42;
+    const n = Math.round(Math.min(110, w * h / 9000));
+    parts = Array.from({length: n}, () => make(true));
+  }
+  function make(anywhere) {
+    return {
+      a: Math.random() * Math.PI * 2,
+      r: anywhere ? Math.random() * Math.max(w, h) * 0.6 : 20 + Math.random() * 60,
+      v: 2 + Math.random() * 4,
+      len: 30 + Math.random() * 90,
+      wd: 1 + Math.random() * 2.5,
+      col: colors[(Math.random() * colors.length) | 0]
+    };
+  }
+  function tick() {
+    if (visible) {
+      ctx.clearRect(0, 0, w, h);
+      boost += (1 - boost) * 0.02;
+      const max = Math.hypot(w, h) * 0.7;
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.r += p.v * boost * (0.4 + p.r / 260);
+        if (p.r > max) { parts[i] = make(false); continue; }
+        const cos = Math.cos(p.a), sin = Math.sin(p.a);
+        const l = p.len * (0.3 + p.r / 400) * Math.min(boost, 3);
+        ctx.globalAlpha = Math.min(0.85, p.r / 300);
+        ctx.strokeStyle = p.col; ctx.lineWidth = p.wd * (0.5 + p.r / 500);
+        ctx.beginPath();
+        ctx.moveTo(cx + cos * p.r, cy + sin * p.r);
+        ctx.lineTo(cx + cos * (p.r + l), cy + sin * (p.r + l));
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(tick);
+  }
+  // stop drawing while the hero is off screen (saves battery on phones)
+  if ('IntersectionObserver' in window) new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(c);
+  window.addEventListener('resize', size);
+  size(); tick();
+})();
+
+/* ---------- trailer: muted autoplay loop + play-with-sound button ---------- */
+(() => {
+  const v = document.getElementById('vid');
+  const btn = document.getElementById('sound');
+  let wanted = !reduce; // should the trailer be playing?
+  const tryPlay = () => v.play().catch(() => {});
+  if (wanted) { v.preload = 'auto'; tryPlay(); }
+  function render() { btn.classList.toggle('on', !v.muted && !v.paused); }
+  btn.addEventListener('click', () => {
+    if (v.muted || v.paused) {
+      v.muted = false; v.currentTime = 0; wanted = true; tryPlay();
+    } else {
+      v.muted = true;
+    }
+    render();
+  });
+  v.addEventListener('play', render); v.addEventListener('pause', render); v.addEventListener('volumechange', render);
+  // pause while scrolled away, resume when it comes back
+  if ('IntersectionObserver' in window) new IntersectionObserver(e => {
+    if (e[0].isIntersecting) { if (wanted) tryPlay(); } else if (!v.paused) v.pause();
+  }, {threshold: 0.25}).observe(v);
+})();
+
+/* ---------- top bar gets a solid background once you scroll ---------- */
+(() => {
+  const bar = document.querySelector(".bar");
+  const set = () => bar.classList.toggle("solid", window.scrollY > 60);
+  window.addEventListener("scroll", set, {passive: true}); set();
+})();
+
+/* ---------- reveal on scroll + count-up numbers ---------- */
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  const count = root => root.querySelectorAll('[data-count]').forEach(n => {
+    const end = +n.dataset.count, unit = n.querySelector('small'), t0 = performance.now(), dur = 1200;
+    const step = t => {
+      const k = Math.min(1, (t - t0) / dur), val = Math.round(end * (1 - Math.pow(1 - k, 3)));
+      n.firstChild.nodeValue = val;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    if (reduce) n.firstChild.nodeValue = end; else requestAnimationFrame(step);
+  });
+  if (!('IntersectionObserver' in window)) { els.forEach(e => { e.classList.add('in'); count(e); }); return; }
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); count(en.target); io.unobserve(en.target); }
+  }), {threshold: 0.18});
+  els.forEach(e => io.observe(e));
+})();
+</script>
+</body>
+</html>
