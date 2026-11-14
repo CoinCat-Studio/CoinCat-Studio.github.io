@@ -20,7 +20,7 @@ Last updated: 2026-11-14
 - **Languages:** English and French
 - **Working style:** everything is shared through one GitHub organisation
 - **Skill level:** beginners in programming and Godot. Bakr does the work; Claude is the main developer for the games.
-- **Budget:** keep everything free where possible. No paid domain for now. Only planned cost: Google Play developer account (~$25 once).
+- **Budget:** keep everything free where possible. Own domain coincat.online bought (~€10–30/year). Next planned cost: Google Play developer account (~$25 once).
 - **Deadline:** none. Small and finished beats big and unfinished.
 
 **Important:** the cat and the coin are ONLY the studio logo. The games are NOT about cats and do NOT have to use orange. Each game has its own style, characters and colors.
@@ -33,7 +33,7 @@ Last updated: 2026-11-14
 |---|---|---|
 | Gmail (studio email) | coincatgames@gmail.com | ✅ Created |
 | GitHub organisation | CoinCat-Studio — https://github.com/CoinCat-Studio | ✅ Created |
-| Website | https://coincat-studio.github.io (repo CoinCat-Studio/CoinCat-Studio.github.io) | ✅ Live |
+| Website | https://coincat.online (GitHub Pages, repo CoinCat-Studio/CoinCat-Studio.github.io, CNAME file = coincat.online) | ✅ Live |
 | TikTok | @coincatgames — https://www.tiktok.com/@coincatgames | ✅ Created |
 | itch.io | coincatstudio — https://coincatstudio.itch.io/ | ✅ Created |
 | YouTube | Not used (decided 2026-11-08) | ❌ Skipped |
@@ -114,7 +114,7 @@ Friendly, short, clear. Write like a game, not a company ("Play again?" not "Wou
 |---|---|---|---|
 | 1 | Brand | Name, logos, colors, fonts, brand guide | ✅ Done |
 | 2 | Online accounts | Studio Gmail ✅, GitHub org ✅, TikTok ✅, itch.io ✅ (no YouTube, no Discord) | ✅ Done |
-| 3 | Website — LIVE at https://coincat-studio.github.io (source: CatCoin/website) | Home, Games, About us, Contact, Privacy Policy on GitHub Pages (Privacy Policy + app-ads.txt needed for Google Play / AdMob) | ✅ Done |
+| 3 | Website — LIVE at https://coincat.online (source: CatCoin/website) | Home, Games, About us, Contact, Privacy Policy on GitHub Pages (Privacy Policy + app-ads.txt needed for Google Play / AdMob) | ✅ Done |
 | 4 | Tools setup (NEXT) | Install Godot 4 + GitHub Desktop, starter project (portrait phone settings, CoinCat splash screen, simple menu), one-page Git guide | To do |
 | 5 | Learning | Godot basics (scenes, sprites, touch, scripts) + one tiny practice game together (e.g. tap-to-jump) | To do |
 | 6 | First release | Small real game, AdMob ads, publish on Google Play, add to website, share clips | To do |
@@ -154,3 +154,4 @@ Phase 4 — Tools setup:
 - **2026-11-11** — Roles updated: Bakr = Founder (art direction, code, everything). Website: GLAUDIRIUS added as the next game (home teaser strip + cold game card + freeze transition) and new teaser page games/glaudirius.html. Google Doc updated (founders, Phase 3, Phase 6).
 - **2026-11-12** — Website: MOTO LOCO! (endless motorcycle runner) added as the main featured game, "Coming soon". New page games/moto-loco.html with its own bright speed style, trailer (compressed 46 MB → ~7 MB), and "FULL THROTTLE!" transition from the home page. Home teaser strip + first card now MOTO LOCO!, GLAUDIRIUS second (cold transition kept). Optimized assets in games/motoloco/ (originals in games/MOTO LOCO! stay out of the upload). Checked on desktop (1440px) and phone (390px). Also: Bakr card now "Founder. Art direction & code.", "2D" removed from the site texts (we make 2D and 3D mobile games). Pushed to the website repo with git (not the web upload).
 - **2026-11-14** — Co-founder removed everywhere: website "About us" team (only Bakr's card remains), old co-founder photo deleted from assets, this file and the Google Doc updated (Bakr = solo founder). Pushed.
+- **2026-11-14** — Own domain bought: website is now https://coincat.online (GitHub Pages custom domain, CNAME file in the repo; keep it when uploading). MOTO LOCO! share image link switched to coincat.online.
