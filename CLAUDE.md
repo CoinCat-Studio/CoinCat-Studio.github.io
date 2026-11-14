@@ -4,21 +4,21 @@
 > Update it at the end of every work session: change the status, the "Next step" and add a line to the Changelog.
 > ALSO update the Google Doc (section 3) with every change: phase statuses, accounts, next steps.
 
-Last updated: 2026-11-12
+Last updated: 2026-11-14
 
 ---
 
 ## 1. The studio
 
 - **Name:** CoinCat Studio
-- **Founders:** Bakr AMGHAR — **Founder** (art direction & code). Rayane BENLECHHAB — **Co-founder** (not active yet).
+- **Founder:** Bakr AMGHAR — **Founder** (art direction & code). Solo founder.
 - **What we make:** mobile games (2D and 3D), any genre.
 - **First game:** **GLAUDIRIUS** (subtitle "Blood & Glory" to confirm) — turn-based medieval gladiator RPG, Android, portrait, Godot 4. In development. Teaser page live on the website.
 - **Engine:** Godot 4
-- **Platform:** Android (Google Play) first. iPhone later (Rayane has a Mac).
+- **Platform:** Android (Google Play) first. iPhone later (needs a Mac).
 - **Business model:** free games with ads (Google AdMob)
 - **Languages:** English and French
-- **Working style:** both founders work remotely and share everything through one GitHub organisation
+- **Working style:** everything is shared through one GitHub organisation
 - **Skill level:** beginners in programming and Godot. Bakr does the work; Claude is the main developer for the games.
 - **Budget:** keep everything free where possible. No paid domain for now. Only planned cost: Google Play developer account (~$25 once).
 - **Deadline:** none. Small and finished beats big and unfinished.
@@ -40,7 +40,7 @@ Last updated: 2026-11-12
 | Discord server | Not used (decided 2026-11-08) | ❌ Skipped |
 | LinkedIn (Bakr) | https://www.linkedin.com/in/bakr-amghar-0675b428b/ | ✅ On website |
 
-**GitHub setup:** a separate studio GitHub account (linked to coincatgames@gmail.com) created the organisation and stays as a **backup Owner** only. Bakr and Rayane work daily with their **personal** GitHub accounts, invited to the organisation as **Owners**.
+**GitHub setup:** a separate studio GitHub account (linked to coincatgames@gmail.com) created the organisation and stays as a **backup Owner** only. Bakr works daily with his **personal** GitHub account, invited to the organisation as **Owner**.
 
 Username rule: use **coincatgames** where possible (GitHub organisation is CoinCat-Studio). Never store passwords in this file.
 
@@ -124,7 +124,7 @@ Friendly, short, clear. Write like a game, not a company ("Play again?" not "Wou
 ## 7. ▶ NEXT STEP
 
 Phase 4 — Tools setup:
-1. Install Godot 4 and GitHub Desktop on both computers.
+1. Install Godot 4 and GitHub Desktop.
 2. Export the app icon (Android sizes) and the splash screen for Godot.
 3. Create the starter project repo in the CoinCat-Studio organisation (portrait phone settings, CoinCat splash screen, simple menu) + one-page Git guide.
 4. Then Phase 5: learn the Godot basics together and start the practice game.
@@ -146,10 +146,11 @@ Phase 4 — Tools setup:
 - **2026-11-08** — Project kickoff. Plan defined. Name "CoinCat Studio" chosen. Logos finalised (paw + CC coin, and COINCAT wordmark with coin O), 8-color palette, fonts. Google Doc brand guide created and edited by the founders (v1.0, official). This context folder created. Phase 1 done.
 - **2026-11-08** — Phase 2 started. Studio Gmail created: coincatgames@gmail.com. Decided: free Gmail now, own domain + professional email later (around first release). Username for all platforms: coincatgames.
 - **2026-11-08** — GitHub organisation CoinCat-Studio created (studio account = backup Owner, founders use personal accounts). TikTok @coincatgames created. Phase 3 started: website built (Home, Games, About, Contact, Privacy Policy), saved in CatCoin/website, waiting to be uploaded to GitHub Pages.
-- **2026-11-08** — Website: added founder photos (assets/bakr.jpg, assets/rayane.jpg) and Bakr's LinkedIn link (team card + contact).
+- **2026-11-08** — Website: added founder photo (assets/bakr.jpg) and Bakr's LinkedIn link (team card + contact).
 - **2026-11-08** — Website LIVE on GitHub Pages: https://coincat-studio.github.io. Phase 3 done. To update: upload changed files to the repo CoinCat-Studio.github.io (Add file › Upload files).
 - **2026-11-08** — itch.io created: https://coincatstudio.itch.io/. Decided NOT to use YouTube. Phase 2: only Discord left.
 - **2026-11-08** — Decided NOT to use Discord (team uses a shared group chat). Phase 2 done. Next: Phase 4 (Tools setup). Google Doc updated to match (phase statuses, accounts, tools, next steps).
 - **2026-11-08** — Decided: Godot 4 standard version with GDScript (not the .NET/C# version). On Windows, launch the normal Godot .exe; the _console .exe is only for seeing extra error logs.
-- **2026-11-11** — Roles updated: Bakr = Founder (art direction, code, everything), Rayane = Co-founder. Website: GLAUDIRIUS added as the next game (home teaser strip + cold game card + freeze transition) and new teaser page games/glaudirius.html. Google Doc updated (founders, Phase 3, Phase 6).
+- **2026-11-11** — Roles updated: Bakr = Founder (art direction, code, everything). Website: GLAUDIRIUS added as the next game (home teaser strip + cold game card + freeze transition) and new teaser page games/glaudirius.html. Google Doc updated (founders, Phase 3, Phase 6).
 - **2026-11-12** — Website: MOTO LOCO! (endless motorcycle runner) added as the main featured game, "Coming soon". New page games/moto-loco.html with its own bright speed style, trailer (compressed 46 MB → ~7 MB), and "FULL THROTTLE!" transition from the home page. Home teaser strip + first card now MOTO LOCO!, GLAUDIRIUS second (cold transition kept). Optimized assets in games/motoloco/ (originals in games/MOTO LOCO! stay out of the upload). Checked on desktop (1440px) and phone (390px). Also: Bakr card now "Founder. Art direction & code.", "2D" removed from the site texts (we make 2D and 3D mobile games). Pushed to the website repo with git (not the web upload).
+- **2026-11-14** — Co-founder removed everywhere: website "About us" team (only Bakr's card remains), old co-founder photo deleted from assets, this file updated (Bakr = solo founder). Pushed.
